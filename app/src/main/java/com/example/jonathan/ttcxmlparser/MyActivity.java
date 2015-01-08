@@ -46,7 +46,7 @@ public class MyActivity extends Activity
 
         List<String> myList = obj.getRouteList();   // get the list of routes
 
-        for (int i = 0; i < myList.size(); i++)
+        for (int i = 0; i < myList.size(); i++)  //print the list of routes on the terminal
         {
             System.out.println(myList.get(i));
         }
