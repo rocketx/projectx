@@ -21,7 +21,6 @@ public class MyActivity extends Activity
 {
 
     String finalUrl = " http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc";
-    private EditText location, country, temperature, humidity, pressure;
     private HandleXML obj;
 
     @Override
@@ -29,11 +28,6 @@ public class MyActivity extends Activity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-        //   location = (EditText) findViewById(R.id.editText1);
-        //  country = (EditText) findViewById(R.id.editText2);
-        //   temperature = (EditText) findViewById(R.id.editText3);
-        //  humidity = (EditText) findViewById(R.id.editText4);
-        //   pressure = (EditText) findViewById(R.id.editText5);
     }
 
     @Override
@@ -46,22 +40,15 @@ public class MyActivity extends Activity
 
     public void open(View view)    //change this method to a OnClick method later
     {
-        //  String url = location.getText().toString();
-        //  String finalUrl = url1 + url + url2;
-        // country.setText(finalUrl);
         obj = new HandleXML(finalUrl);
         obj.fetchXML();
         while (obj.parsingComplete) ;
 
-        List<String> myList = obj.getRouteList();
+        List<String> myList = obj.getRouteList();   // get the list of routes
+
         for (int i = 0; i < myList.size(); i++)
         {
             System.out.println(myList.get(i));
         }
-        //country.setText(obj.getRoutes());
-        // temperature.setText("blank");
-        // humidity.setText("blank");
-        // pressure.setText("blank");
-
     }
 }
