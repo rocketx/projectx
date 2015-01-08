@@ -25,11 +25,9 @@ import android.widget.Toast;
 
 public class HandleXML
 {
-
-
     List<String> routeList = new ArrayList<String>();
 
-    private String routes = "routes";
+    private String route = null;            // a route element
     private String urlString = null;         //the full xml url
 
     private XmlPullParserFactory xmlFactoryObject;
@@ -49,16 +47,6 @@ public class HandleXML
     //parse XML
     public void parseXMLAndStoreIt(XmlPullParser myParser)
     {
-
-       /*
-       Get the following information from the xml file:
-       country
-       temperature
-       humidity
-       pressure
-       */
-
-
         int event;   //event number
         String text = null;
         try
@@ -72,19 +60,18 @@ public class HandleXML
                 {
                     case XmlPullParser.START_TAG:     //start tag
                         break;
-                    case XmlPullParser.TEXT:          //the "text" inside the surrounding tag
+                    case XmlPullParser.TEXT:          //the "text" inside the surrounding tags
                         text = myParser.getText();
                         break;
 
                     case XmlPullParser.END_TAG:        //end tag
                         if (name.equals("route"))
                         {
-                            routes = myParser.getAttributeValue(null, "title");    //<route tag="5" title="5-Avenue Rd"/>
-                            routeList.add(routes);       //add route to routeList
-                        }
-
-                        else
+                            route = myParser.getAttributeValue(null, "title");    //for example: <route tag="5" title="5-Avenue Rd"/>
+                            routeList.add(route);       //add route to routeList
+                        } else
                         {
+                            //do nothing
                         }
                         break;
                 }
@@ -130,10 +117,6 @@ public class HandleXML
                 }
             }
         });
-
         thread.start();
-
-
     }
-
 }
