@@ -15,19 +15,22 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
-public class MyActivity extends Activity
+public class MyActivity extends Activity implements View.OnClickListener
 {
 
     String finalUrl = " http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc";
     private HandleXML obj;
-
+Button butt;
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
+butt = (Button)findViewById(R.id.button1);
+
     }
 
     @Override
@@ -38,17 +41,23 @@ public class MyActivity extends Activity
         return true;
     }
 
-    public void open(View view)    //change this method to a OnClick method later
+    public void onClick(View v)
     {
-        obj = new HandleXML(finalUrl);
-        obj.fetchXML();
-        while (obj.parsingComplete) ;
 
-        List<String> myList = obj.getRouteList();   // get the list of routes
-
-        for (int i = 0; i < myList.size(); i++)  //print the list of routes on the terminal
+        if(v.getId()==butt.getId())
         {
-            System.out.println(myList.get(i));
+
+            obj = new HandleXML(finalUrl);
+            obj.fetchXML();
+            while (obj.parsingComplete) ;
+
+            List<String> myList = obj.getRouteList();   // get the list of routes
+
+            for (int i = 0; i < myList.size(); i++)  //print the list of routes on the terminal
+            {
+                System.out.println(myList.get(i));
+            }
         }
+
     }
 }
