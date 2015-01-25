@@ -1,8 +1,6 @@
 package com.example.jonathan.ttcxmlparser;
 
-
-
- import android.content.Context;
+import android.content.Context;
 import android.net.ConnectivityManager;
 
 public class DetectConnection

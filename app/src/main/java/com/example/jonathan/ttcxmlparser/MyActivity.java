@@ -1,35 +1,27 @@
 package com.example.jonathan.ttcxmlparser;
 
-import java.io.IOException;
 import java.util.List;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.util.EntityUtils;
 
 import android.os.Bundle;
 import android.app.Activity;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.Toast;
 
 public class MyActivity extends Activity implements View.OnClickListener
 {
 
     String finalUrl = " http://webservices.nextbus.com/service/publicXMLFeed?command=routeList&a=ttc";
     private HandleXML obj;
-Button butt;
+    Button butt;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);
-butt = (Button)findViewById(R.id.button1);
+        butt = (Button) findViewById(R.id.button1);
 
     }
 
@@ -44,19 +36,29 @@ butt = (Button)findViewById(R.id.button1);
     public void onClick(View v)
     {
 
-        if(v.getId()==butt.getId())
+        if (v.getId() == butt.getId())
         {
+            Toast.makeText(MyActivity.this, "button pressed", Toast.LENGTH_SHORT).show();
+          //  if (DetectConnection.checkInternetConnection(MyActivity.this))   //if the device has wifi connection
+         //   {
+                obj = new HandleXML(finalUrl);
+                obj.fetchXML();
 
-            obj = new HandleXML(finalUrl);
-            obj.fetchXML();
-            while (obj.parsingComplete) ;
+                while (obj.parsingComplete) ;
 
-            List<String> myList = obj.getRouteList();   // get the list of routes
+                List<String> myList = obj.getRouteList();   // get the list of routes
 
-            for (int i = 0; i < myList.size(); i++)  //print the list of routes on the terminal
-            {
-                System.out.println(myList.get(i));
-            }
+                for (int i = 0; i < myList.size(); i++)  //print the list of routes on the terminal
+                {
+                    System.out.println(myList.get(i));
+                }
+         ///   }
+          //  else
+          //  {
+         //       Toast.makeText(MyActivity.this, "You don't have internet connection!!!", Toast.LENGTH_SHORT).show();
+          //  }
+
+
         }
 
     }
